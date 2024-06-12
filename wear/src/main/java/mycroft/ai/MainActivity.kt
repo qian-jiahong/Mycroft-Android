@@ -127,25 +127,27 @@ class MainActivity : WearableActivity(), GoogleApiClient.ConnectionCallbacks, Go
             REQ_CODE_SPEECH_INPUT -> {
                 if (resultCode == Activity.RESULT_OK && null != data) {
 
-                    val result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-
-                    sendMessage(result[0])
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    result?.get(0)?.let {
+                        sendMessage(it)
+                    }
                 }
             }
         }
     }
 
     override fun onConnected(bundle: Bundle?) {
-        Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).setResultCallback { getConnectedNodesResult ->
-            for (node in getConnectedNodesResult.nodes) {
-                if (node != null && node.isNearby) {
-                    mNode = node
-                    showToast("Connected To " + node.displayName)
-                    Log.d(WEARABLE_MAIN, "Connected to " + node.displayName)
-                } else {
-                    showToast("Not Connected")
-                    Log.d(WEARABLE_MAIN, "NOT CONNECTED")
+        mGoogleApiClient?.let {
+            Wearable.NodeApi.getConnectedNodes(it).setResultCallback { getConnectedNodesResult ->
+                for (node in getConnectedNodesResult.nodes) {
+                    if (node != null && node.isNearby) {
+                        mNode = node
+                        showToast("Connected To " + node.displayName)
+                        Log.d(WEARABLE_MAIN, "Connected to " + node.displayName)
+                    } else {
+                        showToast("Not Connected")
+                        Log.d(WEARABLE_MAIN, "NOT CONNECTED")
+                    }
                 }
             }
         }
@@ -171,7 +173,7 @@ class MainActivity : WearableActivity(), GoogleApiClient.ConnectionCallbacks, Go
 
     fun sendMessage(message: String) {
         if (mNode != null && mGoogleApiClient != null) {
-            Wearable.MessageApi.sendMessage(mGoogleApiClient, mNode!!.id, MYCROFT_QUERY_MESSAGE_PATH, message.toByteArray()).setResultCallback { sendMessageResult ->
+            Wearable.MessageApi.sendMessage(mGoogleApiClient!!, mNode!!.id, MYCROFT_QUERY_MESSAGE_PATH, message.toByteArray()).setResultCallback { sendMessageResult ->
                 if (!sendMessageResult.status.isSuccess) {
                     showToast("Message Failed")
                 } else {

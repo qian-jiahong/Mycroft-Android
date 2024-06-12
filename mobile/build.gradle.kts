@@ -25,15 +25,15 @@ plugins {
 	id("com.google.gms.google-services")
 }
 android {
-
-	compileSdk = 29
-	buildToolsVersion = "31.0.0"
+	namespace = "mycroft.ai"
+	compileSdk = 33
 	defaultConfig {
 		applicationId = "mycroft.ai"
 		minSdk = 19
-		targetSdk = 29
+		targetSdk = 33
 		versionCode = project.ext.get("versionCode") as Int
 		versionName = project.ext.get("versionName") as String
+		multiDexEnabled = true
 
 		testInstrumentationRunner = ("androidx.test.runner.AndroidJUnitRunner")
 	}
@@ -96,4 +96,6 @@ dependencies {
 	implementation("org.java-websocket:Java-WebSocket:1.5.2")
 
 	implementation("androidx.legacy:legacy-support-core-utils:1.0.0")
+
+	implementation ("androidx.multidex:multidex:2.0.1")
 }

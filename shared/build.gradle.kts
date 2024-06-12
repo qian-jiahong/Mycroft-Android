@@ -24,12 +24,11 @@ plugins {
 }
 
 android {
-	compileSdk = 29
-	buildToolsVersion = "31.0.0"
+	namespace = "mycroft.ai.shared"
+	compileSdk = 33
 
 	defaultConfig {
 		minSdk = 19
-		targetSdk = 29
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 	}

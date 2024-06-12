@@ -24,15 +24,15 @@ plugins {
 }
 
 android {
-
-	compileSdk = 29
-	buildToolsVersion = "31.0.0"
+	namespace = "mycroft.ai"
+	compileSdk = 33
 	defaultConfig {
 		applicationId = "mycroft.ai"
 		minSdk = 19
-		targetSdk = 29
+		targetSdk = 33
 		versionCode = project.ext.get("versionCode") as Int
 		versionName = project.ext.get("versionName") as String
+		multiDexEnabled = true
 	}
 	buildTypes {
 		named("release") {
@@ -46,9 +46,9 @@ android {
 
 dependencies {
 	implementation(fileTree("include" to arrayOf("*.jar"), "dir" to "libs"))
-	compileOnly("com.google.android.wearable:wearable:2.8.1")
-	implementation("com.google.android.support:wearable:2.8.1")
-	implementation("com.google.android.gms:play-services-wearable:17.1.0")
+	compileOnly("com.google.android.wearable:wearable:2.9.0")
+	implementation("com.google.android.support:wearable:2.9.0")
+	implementation("com.google.android.gms:play-services-wearable:18.2.0")
 	implementation(project(":shared"))
 	implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
 }
