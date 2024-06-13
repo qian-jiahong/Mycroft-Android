@@ -398,11 +398,10 @@ class MainActivity : AppCompatActivity() {
 		when (requestCode) {
 			reqCodeSpeechInput -> {
 				if (resultCode == Activity.RESULT_OK && null != data) {
-
-					val result = data
-						.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-
-					sendMessage(result[0])
+					val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+					result?.get(0)?.let {
+						sendMessage(it)
+					}
 				}
 			}
 		}

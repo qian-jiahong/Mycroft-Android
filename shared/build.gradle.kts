@@ -51,8 +51,20 @@ dependencies {
 	androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 	implementation("androidx.appcompat:appcompat:1.3.1")
 	testImplementation("junit:junit:4.13.2")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 	implementation("androidx.annotation:annotation:1.2.0")
 
 	implementation(group = "com.google.android.material", name = "material", version = "1.4.0")
+}
+
+java {
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(17))
+	}
+}
+
+kotlin {
+	jvmToolchain {
+		(this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
+	}
 }
