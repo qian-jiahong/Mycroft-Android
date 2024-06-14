@@ -90,6 +90,9 @@ android {
 
 dependencies {
     implementation(fileTree("include" to arrayOf("*.jar"), "dir" to "libs"))
+    wearApp(project(":wear"))
+    implementation(project(":shared"))
+
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.4.0")
 
@@ -117,8 +120,7 @@ dependencies {
     androidTestImplementation("androidx.annotation:annotation:1.2.0")
 
     implementation("com.google.android.gms:play-services-wearable:17.1.0")
-    wearApp(project(":wear"))
-    implementation(project(":shared"))
+
     //kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
     //rxjava,rxandroid
@@ -130,4 +132,16 @@ dependencies {
     implementation("androidx.legacy:legacy-support-core-utils:1.0.0")
 
     implementation("androidx.multidex:multidex:2.0.1")
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+kotlin {
+    jvmToolchain {
+        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }

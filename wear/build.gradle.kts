@@ -89,3 +89,15 @@ dependencies {
 	implementation(project(":shared"))
 	implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 }
+
+java {
+	toolchain {
+		languageVersion.set(JavaLanguageVersion.of(17))
+	}
+}
+
+kotlin {
+	jvmToolchain {
+		(this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
+	}
+}

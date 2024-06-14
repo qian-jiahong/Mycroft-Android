@@ -1,2 +1,4 @@
-include(":mobile", ":wear", ":shared")
+include(":shared")
+include(":mobile")
+include(":wear")
 rootProject.name = "MycroftAI"
