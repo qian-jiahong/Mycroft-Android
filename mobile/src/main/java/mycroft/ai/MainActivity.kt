@@ -245,8 +245,9 @@ class MainActivity : AppCompatActivity() {
 				override fun onError(e: Exception) {
 					Log.i("Websocket", "Error " + e.message)
 				}
+			}.also {
+				it.connect()
 			}
-			webSocketClient!!.connect()
 		}
 	}
 
@@ -343,11 +344,11 @@ class MainActivity : AppCompatActivity() {
 			"{\"data\": {\"utterances\": [\"$msg\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null}"
 
 		try {
-			if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
+			if (webSocketClient?.connection?.isClosed != false) {
 				// try and reconnect
-				if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
+//				if (NetworkUtil.getConnectivityStatus(this) == NetworkUtil.NETWORK_STATUS_WIFI) { //TODO: add config to specify wifi only.
 					connectWebSocket()
-				}
+//				}
 			}
 
 			val handler = Handler()
@@ -441,10 +442,10 @@ class MainActivity : AppCompatActivity() {
 
 		// get mycroft-core ip address
 		wsip = sharedPref.getString("ip", "")!!
-		if (wsip!!.isEmpty()) {
+		if (wsip.isEmpty()) {
 			// eep, show the settings intent!
 			startActivity(Intent(this, SettingsActivity::class.java))
-		} else if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
+		} else if (webSocketClient?.connection?.isClosed == false) {
 			connectWebSocket()
 		}
 

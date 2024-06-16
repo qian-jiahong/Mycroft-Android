@@ -21,9 +21,6 @@
 package mycroft.ai.shared.utilities
 
 import android.content.Context
-import android.view.Gravity
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 
 /**
@@ -32,14 +29,6 @@ import android.widget.Toast
 
 object GuiUtilities {
     fun showToast(context: Context, message: String) {
-        val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
-
-        val layout = toast.view as LinearLayout
-        if (layout.childCount > 0) {
-            val tv = layout.getChildAt(0) as TextView
-            tv.gravity = Gravity.CENTER_VERTICAL or Gravity.CENTER_HORIZONTAL
-        }
-
-        toast.show()
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }
