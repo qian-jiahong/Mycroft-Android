@@ -1,18 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://maven.fabric.io/public")
-        maven("https://maven.google.com")
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.1.3")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
-        classpath(kotlin("serialization", version = "1.9.0"))
-        classpath("com.google.gms:google-services:4.3.10")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.8.0")
-    }
+
+plugins {
+    id("com.android.application") version "8.1.3" apply false
+    id("org.jetbrains.kotlin.android") version "1.8.10" apply false
+    id("com.google.gms.google-services") version "4.3.10" apply false
+    id("com.google.firebase.crashlytics") version "2.8.1" apply false
 }
 
 val versionMajor = 1
@@ -22,12 +14,6 @@ val versionClassifier: String = "SNAPSHOT"
 val apkBaseName: String = "MycroftAI"
 
 allprojects {
-    repositories {
-        maven("https://maven.google.com")
-        google()
-        mavenCentral()
-    }
-
     project.extra.apply {
         set("versionCode", versionMajor * 10000 + versionMinor * 100 + versionPatch)
         set("versionName", getVersionName())
